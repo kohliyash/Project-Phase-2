@@ -1,0 +1,77 @@
+(Insertion sort)
+
+#include <iostream>
+using namespace std;
+int main()
+{
+int st[16], i, y, k, temp;
+cout<<"enter 5 elements only to sort n:-";
+for (i = 0; i < 5; i++)
+{
+cin>>st[i];
+}
+for (i = 1; i < 5; i++)
+{
+for (y = i; y >= 1; y--)
+{
+if (st[y] < st[y-1])
+{
+temp = st[y];
+st[y] = st[y-1];
+st[y-1] = temp;
+}
+else
+break;
+}
+}
+cout<<"sorted array n "<<endl;
+for (k = 0; k < 5; k++)
+cout<<st[k]<<endl;
+}
+
+________________________________________________
+(Selection Sort)
+
+#include<iostream>
+ 
+using namespace std;
+ 
+int main()
+{
+    int i,y,n,loc,temp,min,a[30];
+    cout<<"Enter the number of elements:";
+    cin>>n;
+    cout<<"\nEnter the elements\n";
+ 
+    for(i=0;i<n;i++)
+    {
+        cin>>a[i];
+    }
+ 
+    for(i=0;i<n-1;i++)
+    {
+        min=a[i];
+        loc=i;
+        for(y=i+1;y<n;y++)
+        {
+            if(min>a[y])
+            {
+                min=a[y];
+                loc=y;
+            }
+        }
+ 
+        temp=a[i];
+        a[i]=a[loc];
+        a[loc]=temp;
+    }
+ 
+    cout<<"\nSorted list is as follows\n";
+    for(i=0;i<n;i++)
+    {
+        cout<<a[i]<<" ";
+    }
+ 
+    return 0;
+}
+
