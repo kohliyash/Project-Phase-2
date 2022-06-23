@@ -1,0 +1,46 @@
+#include <iostream>
+using namespace std;
+
+#define nV 4
+
+#define INF 999
+
+void printMatrix(int matrix[][nV]);
+
+void floydWarshall(int graph[][nV]) {
+  int matrix[nV][nV], x, y, z;
+
+  for (x = 0; x < nV; x++)
+    for (y = 0; y < nV; y++)
+      matrix[x][y] = graph[x][y];
+
+  for (z = 0; z < nV; z++) {
+    for (x = 0; x < nV; x++) {
+      for (y = 0; y < nV; y++) {
+        if (matrix[x][y] + matrix[z][y] < matrix[x][y])
+          matrix[x][y] = matrix[x][z] + matrix[z][y];
+      }
+    }
+  }
+  printMatrix(matrix);
+}
+
+void printMatrix(int matrix[][nV]) {
+  for (int x = 0; x < nV; x++) {
+    for (int y = 0; y < nV; y++) {
+      if (matrix[x][y] == INF)
+        printf("%4s", "INF");
+      else
+        printf("%4d", matrix[x][y]);
+    }
+    printf("\n");
+  }
+}
+
+int main() {
+  int graph[nV][nV] = {{0, 3, INF, 5},
+             {2, 0, INF, 4},
+             {INF, 1, 0, INF},
+             {INF, INF, 2, 0}};
+  floydWarshall(graph);
+}
