@@ -1,0 +1,76 @@
+import sys
+from collections import deque
+
+row = [-1, 0, 0, 1]
+col = [0, -1, 1, 0]
+
+def isValid(mat, visited, row, col):
+    return (row >= 0) and (row < len(mat)) and (col >= 0) and (col < len(mat[0])) \
+           and mat[row][col] == 1 and not visited[row][col]
+
+def findShortestPathLength(mat, src, dest):
+
+    a, b = src
+
+    y, k = dest
+
+    if not mat or len(mat) == 0 or mat[a][b] == 0 or mat[y][k] == 0:
+        return -1
+
+    (M, N) = (len(mat), len(mat[0]))
+
+    visited = [[False for y in range(N)] for k in range(M)]
+
+    q = deque()
+
+    visited[a][b] = True
+
+    q.append((a, b, 0))
+
+    min_dist = sys.maxsize
+
+    while q:
+
+        (a, b, dist) = q.popleft()
+
+        if a == y and b == k:
+            min_dist = dist
+            break
+
+        for k in range(4):
+
+            if isValid(mat, visited, a + row[k], b + col[k]):
+
+                visited[a + row[k]][b + col[k]] = True
+                q.append((a + row[k], b + col[k], dist + 1))
+ 
+    if min_dist != sys.maxsize:
+        return min_dist
+    else:
+        return -1
+ 
+ 
+if __name__ == '__main__':
+ 
+    mat = [
+        [1, 1, 1, 1, 1, 0, 0, 1, 1, 1],
+        [0, 1, 1, 1, 1, 1, 0, 1, 0, 1],
+        [0, 0, 1, 0, 1, 1, 1, 0, 0, 1],
+        [1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+        [0, 0, 0, 1, 0, 0, 0, 1, 0, 1],
+        [1, 0, 1, 1, 1, 0, 0, 1, 1, 0],
+        [0, 0, 0, 0, 1, 0, 0, 1, 0, 1],
+        [0, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+        [1, 1, 1, 1, 1, 0, 0, 1, 1, 1],
+        [0, 0, 1, 0, 0, 1, 1, 0, 0, 1]
+    ]
+ 
+    src = (0, 0)
+    dest = (7, 5)
+ 
+    min_dist = findShortestPathLength(mat, src, dest)
+ 
+    if min_dist != -1:
+        print("The shortest path from source to destination has length", min_dist)
+    else:
+        print("Destination cannot be reached from source")
