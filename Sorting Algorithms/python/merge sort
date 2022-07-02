@@ -1,0 +1,43 @@
+def mergeSort(array):
+    if len(array) > 1:
+
+        r = len(array)//2
+        A = array[:r]
+        Z = array[r:]
+
+        mergeSort(A)
+        mergeSort(Z)
+
+        i = j = k = 0
+
+        while i < len(A) and j < len(Z):
+            if A[i] < Z[j]:
+                array[k] = A[i]
+                i += 1
+            else:
+                array[k] = Z[j]
+                j += 1
+            k += 1
+
+        while i < len(A):
+            array[k] = A[i]
+            i += 1
+            k += 1
+
+        while j < len(Z):
+            array[k] = Z[j]
+            j += 1
+            k += 1
+
+def printList(array):
+    for i in range(len(array)):
+        print(array[i], end=" ")
+    print()
+
+if __name__ == '__main__':
+    array = [6, 5, 18, 10, 11, 1]
+
+    mergeSort(array)
+
+    print("Sorted array is: ")
+    printList(array)
