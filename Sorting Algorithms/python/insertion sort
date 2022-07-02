@@ -1,0 +1,16 @@
+def insertionSort(array):
+
+    for step in range(1, len(array)):
+        key = array[step]
+        k = step - 1
+      
+        while k >= 0 and key < array[k]:
+            array[k + 1] = array[k]
+            k = k - 1
+
+        array[k + 1] = key
+
+data = [9, 6, 1, 7, 2]
+insertionSort(data)
+print('Sorted Array in Ascending Order:')
+print(data)
