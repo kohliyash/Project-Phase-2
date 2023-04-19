@@ -1,0 +1,110 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.util.*;
+public class Project extends JFrame {
+    private LinkedList<Integer> list;
+    private JTextArea display;
+    private JRadioButton SRadio, QRadio;
+    private JButton Push, Pop, Add, Delete;
+
+    public Project() {
+        list = new LinkedList<Integer>();
+        for (int i = 0; i < 10; i++) {
+            list.add((int) (Math.random() * 100));
+        }
+        display = new JTextArea(list.toString());
+        SRadio = new JRadioButton("Stack");
+        QRadio = new JRadioButton("Queue");
+        ButtonGroup group = new ButtonGroup();
+        group.add(SRadio);
+        group.add(QRadio);
+        Push = new JButton("Push");
+        Pop = new JButton("Pop");
+        Add = new JButton("Add");
+        Delete = new JButton("Delete");
+        
+        JPanel topPanel = new JPanel();
+        topPanel.add(display);
+        add(topPanel, BorderLayout.NORTH);
+
+        JPanel centerPanel = new JPanel();
+        centerPanel.add(SRadio);
+        centerPanel.add(QRadio);
+        add(centerPanel, BorderLayout.CENTER);
+
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.add(Push);
+        bottomPanel.add(Pop);
+        bottomPanel.add(Add);
+        bottomPanel.add(Delete);
+        add(bottomPanel, BorderLayout.SOUTH);
+
+            Push.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (SRadio.isSelected()) {
+                    if (list.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "List is empty!");
+                    } else {
+                        int num = (int) (Math.random() * 100);
+						list.add(num);
+                        display.setText(list.toString());
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid choice!");
+                }
+
+            }
+        });
+        Pop.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (SRadio.isSelected()) {
+                    
+                    list.removeLast();
+                    display.setText(list.toString());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid choice!");
+                }
+            }
+        });
+
+        Add.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (QRadio.isSelected()) {
+                    int num = (int) (Math.random() * 100);
+                    list.addLast(num);
+                    display.setText(list.toString());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid choice!");
+                }
+            }
+        });
+
+        Delete.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (QRadio.isSelected()) {
+                    if (list.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "List is empty!");
+                    } else {
+                        list.removeFirst();
+                        display.setText(list.toString());
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid choice!");
+                }
+            }
+        });
+
+      
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JFrame frame= new JFrame();
+        setSize(400, 400);
+        setLocationRelativeTo(null);	
+        setTitle("Project ");
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new Project();
+    }
+}
